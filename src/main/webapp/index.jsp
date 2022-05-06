@@ -23,7 +23,7 @@
 		}
 		h6 {
 			position: absolute;
-			top: 50%;
+			top: 55%;
 			left: 32%;
 			color: red;
 		}
@@ -32,16 +32,20 @@
 <body>
 	<h3>Curso JSP - Jdev Treinamento</h3>
 	
-	<form action="ServletLogin" method="post" class="row g-3">
+	<form action="ServletLogin" method="post" class="row g-3 needs-validation" novalidate>
 	<input type="hidden" value="<%=request.getParameter("url")%>" name="url">
 		<div class="col-md-6">
 			<label class="form-label">Login:</label>
-			<input class="form-control" type="text" name="login">
+			<input class="form-control" type="text" name="login" required>
+			<div class="invalid-feedback">Informe o login</div>
+			<div class="valid-feedback">ok</div>
 		</div>
 
 		<div class="col-md-6">
 			<label class="form-label">Senha:</label>
-			<input class="form-control" type="password" name="senha">
+			<input class="form-control" type="password" name="senha" required>
+			<div class="invalid-feedback">Informe a senha</div>
+			<div class="valid-feedback">ok</div>
 		</div>
 
 		<input type="submit" class="btn btn-primary" value="Enviar">
@@ -51,5 +55,28 @@
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict'
+
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms).forEach(function(form) {
+			form.addEventListener('submit', function(event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			}, false)
+		})
+	})()
+</script>
+
 </body>
 </html>
