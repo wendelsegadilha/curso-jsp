@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ModelLogin;
 
-@WebServlet(urlPatterns = {"/principal/ServletLogin", "/ServletLogin"})
+@WebServlet(urlPatterns = { "/principal/ServletLogin", "/ServletLogin" })
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,16 @@ public class ServletLogin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+
+		String acao = request.getParameter("acao");
+
+		if (acao != null && !acao.isEmpty() & acao.equalsIgnoreCase("logout")) {
+			request.getSession().invalidate();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+			redirecionar.forward(request, response);
+		} else {
+			doPost(request, response);
+		}
 
 	}
 
@@ -34,14 +43,14 @@ public class ServletLogin extends HttpServlet {
 		String senha = request.getParameter("senha");
 		String url = request.getParameter("url");
 
-		try{
+		try {
 			if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
 				ModelLogin modelLogin = new ModelLogin();
 				modelLogin.setLogin(login);
 				modelLogin.setSenha(senha);
 
-				/*validando Login*/
+				/* validando Login */
 				if (daoLoginRepository.validarAutenticacao(modelLogin)) {
 
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
@@ -63,7 +72,7 @@ public class ServletLogin extends HttpServlet {
 				request.setAttribute("msg", "Informe o login e senha corretamente!");
 				redirecionar.forward(request, response);
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", e.getMessage());
