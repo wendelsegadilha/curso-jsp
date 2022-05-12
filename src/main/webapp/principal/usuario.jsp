@@ -75,8 +75,8 @@
 												            <button class="btn btn-info waves-effect waves-light">Excluir</button>
 												            
                                                         </form> 
-                                                   
                                                 </div>
+                                                   		<span>${msg}</span>
                                                 </div>
                                                 </div>
                                                 </div>
