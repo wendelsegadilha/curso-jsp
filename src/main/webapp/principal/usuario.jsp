@@ -112,10 +112,13 @@
 	}
 	
 	function criarDelete() {
-		var form = document.getElementById("formUser");
-		form.method = 'get';
-		document.getElementById("acao").value = 'deletar';
-		form.submit();
+		
+		if(confirm('Deseja realmente excluir?')){
+			var form = document.getElementById("formUser");
+			form.method = 'get';
+			document.getElementById("acao").value = 'deletar';
+			form.submit();			
+		}
 	}
 	
 </script>
