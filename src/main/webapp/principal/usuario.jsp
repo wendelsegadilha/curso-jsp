@@ -114,7 +114,27 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+      
+        <div class="input-group mb-3">
+		  <input type="text" class="form-control" placeholder="nome do usuário" aria-label="Nome do usuário" id="nomeBusca" aria-describedby="button-addon2">
+		  <div class="input-group-append">
+		    <button class="btn btn-success" type="button" id="button-addon2" onclick="buscarUsuario()">Buscar</button>
+		  </div>
+		</div>
+		
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">Nome</th>
+		      <th scope="col">Ver</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    
+		  </tbody>
+		</table>
+		
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -165,6 +185,15 @@
 			
 		}
 		
+	}
+	
+	function buscarUsuario() {
+		var nomeBusca = document.getElementById("nomeBusca").value;
+		
+		/*validando entrada de dados*/
+		if(nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') {
+			alert(nomeBusca);
+		}
 	}
 	
 </script>
