@@ -17,7 +17,7 @@ public class DAOUsuarioRepository {
 	}
 
 	public ModelLogin gravaUsuario(ModelLogin objeto) throws SQLException {
-
+		
 		String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?)";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
@@ -29,15 +29,15 @@ public class DAOUsuarioRepository {
 
 		preparedSql.execute();
 		connection.commit();
-		
+
 		return consultaUsuario(objeto.getLogin());
 	}
 
 	public ModelLogin consultaUsuario(String login) throws SQLException {
-		
+
 		ModelLogin modelLogin = new ModelLogin();
-		
-		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('"+login+"');";
+
+		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('" + login + "');";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 
@@ -50,9 +50,20 @@ public class DAOUsuarioRepository {
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
 		}
-		
+
 		return modelLogin;
 
+	}
+
+	public boolean validarLogin(String login) throws Exception {
+
+		String sql = "select count(1) > 0 as existe from model_login where upper(login) = upper('"+login+"')";
+
+		PreparedStatement preparedSql = connection.prepareStatement(sql);
+
+		ResultSet resultado = preparedSql.executeQuery();
+		resultado.next(); /* Avança para o resultado */
+		return resultado.getBoolean("existe");
 	}
 
 }
