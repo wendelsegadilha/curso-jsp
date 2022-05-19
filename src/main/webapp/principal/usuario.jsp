@@ -38,8 +38,13 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h4 class="sub-title">Cad. Usuário</h4>
-		                                              
+		                                              		<div style="color: #000; margin-bottom: 20px;">
+		                                              			<span>${msg}</span>
+		                                              		</div>
           												 <form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
+          												 	
+          												 	<input type="hidden" name="acao" id="acao" value="">
+          												 
                                                             <div class="form-group form-default form-static-label">
                                                                 <input type="text" id="id" name="id" class="form-control" readonly="readonly" value="${modelLogin.id}">
                                                                 <span class="form-bar"></span>
@@ -70,13 +75,13 @@
                                                                 <label class="float-label">Senha:</label>
                                                             </div>
                                                             
-                                                           <button class="btn btn-primary waves-effect waves-light" onclick="limparForm()">Novo</button>
-												            <button class="btn btn-success waves-effect waves-light">Salvar</button>
-												            <button class="btn btn-info waves-effect waves-light">Excluir</button>
+                                                           <button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm()">Novo</button>
+												           <button class="btn btn-success waves-effect waves-light">Salvar</button>
+												           <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDelete()">Excluir</button>
 												            
                                                         </form> 
                                                 </div>
-                                                   		<span>${msg}</span>
+                                                   		
                                                 </div>
                                                 </div>
                                                 </div>
@@ -106,6 +111,12 @@
 		}
 	}
 	
+	function criarDelete() {
+		var form = document.getElementById("formUser");
+		form.method = 'get';
+		document.getElementById("acao").value = 'deletar';
+		form.submit();
+	}
 	
 </script>
 </body>

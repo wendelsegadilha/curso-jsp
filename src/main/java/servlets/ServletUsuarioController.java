@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import dao.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
@@ -24,15 +23,35 @@ public class ServletUsuarioController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		try {
+			String acao = request.getParameter("acao");
+			
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+				
+				String idUser = request.getParameter("id");
+				daoUsuarioRepository.deletarUser(idUser);
+				
+				request.setAttribute("msg", "Ok! excluído com sucesso!");
+			}
+			
+			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			redirecionar.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		try {
-			
-			String msg =  "Ok! gravado com sucesso.";
-			
+
+			String msg = "Ok! gravado com sucesso.";
+
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
@@ -45,20 +64,20 @@ public class ServletUsuarioController extends HttpServlet {
 			modelLogin.setEmail(email);
 			modelLogin.setLogin(login);
 			modelLogin.setSenha(senha);
-			
-			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
+
+			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				msg = "Já existe um usuário com o mesmo login, informe outro!";
-			}else {
+			} else {
 				if (!modelLogin.isNovo()) {
 					msg = "Ok! atualizado com sucesso!";
 				}
-				modelLogin = daoUsuarioRepository.gravaUsuario(modelLogin);				
+				modelLogin = daoUsuarioRepository.gravaUsuario(modelLogin);
 			}
-			
+
 			request.setAttribute("msg", msg);
 			request.setAttribute("modelLogin", modelLogin);
 			request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
