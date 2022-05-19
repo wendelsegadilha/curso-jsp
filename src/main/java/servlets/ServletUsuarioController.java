@@ -31,7 +31,7 @@ public class ServletUsuarioController extends HttpServlet {
 		
 		try {
 			
-			String msg =  "OK! gravado com sucesso.";
+			String msg =  "Ok! gravado com sucesso.";
 			
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
@@ -49,6 +49,9 @@ public class ServletUsuarioController extends HttpServlet {
 			if(daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {
 				msg = "Já existe um usuário com o mesmo login, informe outro!";
 			}else {
+				if (!modelLogin.isNovo()) {
+					msg = "Ok! atualizado com sucesso!";
+				}
 				modelLogin = daoUsuarioRepository.gravaUsuario(modelLogin);				
 			}
 			
