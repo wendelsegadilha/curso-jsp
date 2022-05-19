@@ -39,7 +39,7 @@
                                                     <div class="card-block">
                                                         <h4 class="sub-title">Cad. Usuário</h4>
 		                                              		<div style="color: #000; margin-bottom: 20px;">
-		                                              			<span>${msg}</span>
+		                                              			<span id="msg">${msg}</span>
 		                                              		</div>
           												 <form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
           												 	
@@ -77,7 +77,7 @@
                                                             
                                                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="limparForm()">Novo</button>
 												           <button class="btn btn-success waves-effect waves-light">Salvar</button>
-												           <button type="button" class="btn btn-info waves-effect waves-light" onclick="criarDelete()">Excluir</button>
+												           <button type="button" class="btn btn-info waves-effect waves-light" onclick="criaDeleteComAjax()">Excluir</button>
 												            
                                                         </form> 
                                                 </div>
@@ -119,6 +119,30 @@
 			document.getElementById("acao").value = 'deletar';
 			form.submit();			
 		}
+	}
+	
+	function criaDeleteComAjax() {
+		
+		if(confirm('Deseja realmente excluir?')){
+			var urlAction = document.getElementById("formUser").action;
+			var idUser = document.getElementById("id").value;
+			
+			$.ajax({
+				
+				method: "get",
+				url: urlAction,
+				data: "id=" + idUser + "&acao=deletarAjax",
+				success: function(response) {
+					document.getElementById("msg").textContent = response;
+					limparForm();
+				}
+				
+			}).fail(function(xhr, status, errorThrown){
+				alert('Erro ao excluir usuário! Erro: ' + xhr.responseText);
+			});
+			
+		}
+		
 	}
 	
 </script>
