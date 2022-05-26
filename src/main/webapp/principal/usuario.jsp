@@ -209,7 +209,7 @@
 					$('#tabelaResultados > tbody > tr').remove();
 					
 					for (var p = 0; p < json.length; p++) {
-						$('#tabelaResultados > tbody').append('<tr><td>'+json[p].id+'</td><td>'+json[p].nome+'</td><td>'+json[p].email+'</td><td><button class="btn btn-info">Ver</button></td><tr/>');
+						$('#tabelaResultados > tbody').append('<tr><td>'+json[p].id+'</td><td>'+json[p].nome+'</td><td>'+json[p].email+'</td><td><button class="btn btn-info" onclick="verEditar('+json[p].id+')">Ver</button></td><tr/>');
 					}
 					
 					document.getElementById("totalResultados").textContent = "Resultados: " + json.length;
@@ -221,6 +221,12 @@
 			});
 			
 		}
+	}
+	
+	function verEditar(id) {
+		var urlAction = document.getElementById("formUser").action;
+		//alert(urlAction + "?acao=buscarEditar&id="+id);		
+		window.location.href = urlAction + "?acao=buscarEditar&id="+id;
 	}
 	
 </script>
