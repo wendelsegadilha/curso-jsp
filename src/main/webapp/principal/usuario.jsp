@@ -122,18 +122,21 @@
 		  </div>
 		</div>
 		
-		<table class="table">
-		  <thead>
-		    <tr>
-		      <th scope="col">ID</th>
-		      <th scope="col">Nome</th>
-		      <th scope="col">Ver</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    
-		  </tbody>
-		</table>
+		<div style="height: 300px; overflow: scroll;">
+			<table class="table" id="tabelaResultados">
+			  <thead>
+			    <tr>
+			      <th scope="col">ID</th>
+			      <th scope="col">Nome</th>
+			      <th scope="col">E-mail</th>
+			      <th scope="col">Ação</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  </tbody>
+			</table>
+		</div>
+		<span id="totalResultados"></span>
 		
       </div>
       <div class="modal-footer">
@@ -201,7 +204,15 @@
 				data: "nomeBusca=" + nomeBusca + "&acao=buscarUserAjax",
 				success: function(response) {
 					
+					var json = JSON.parse(response);
 					
+					$('#tabelaResultados > tbody > tr').remove();
+					
+					for (var p = 0; p < json.length; p++) {
+						$('#tabelaResultados > tbody').append('<tr><td>'+json[p].id+'</td><td>'+json[p].nome+'</td><td>'+json[p].email+'</td><td><button class="btn btn-info">Ver</button></td><tr/>');
+					}
+					
+					document.getElementById("totalResultados").textContent = "Resultados: " + json.length;
 					
 				}
 				
