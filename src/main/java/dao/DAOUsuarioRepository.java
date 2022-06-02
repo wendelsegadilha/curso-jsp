@@ -53,7 +53,7 @@ public List<ModelLogin> consultausuarioList() throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login";
+		String sql = "select * from model_login where useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		ResultSet resultado = statement.executeQuery();
@@ -74,7 +74,7 @@ public List<ModelLogin> consultausuarioList() throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where upper(nome) like upper(?)";
+		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%"+nome+"%");
 		
@@ -96,7 +96,7 @@ public List<ModelLogin> consultausuarioList() throws Exception {
 
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('" + login + "');";
+		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('" + login + "') and useradmin is false";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 
@@ -126,7 +126,7 @@ public List<ModelLogin> consultausuarioList() throws Exception {
 	}
 
 	public void deletarUser(String idUser) throws Exception {
-		String sql = "DELETE FROM model_login WHERE id = ?";
+		String sql = "DELETE FROM model_login WHERE id = ? and useradmin is false";
 		
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 		preparedSql.setLong(1, Long.parseLong(idUser));
@@ -139,7 +139,7 @@ public List<ModelLogin> consultausuarioList() throws Exception {
 		
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "SELECT * FROM model_login WHERE id = ?";
+		String sql = "SELECT * FROM model_login WHERE id = ? and useradmin is false";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 		preparedSql.setLong(1, Long.valueOf(id));
