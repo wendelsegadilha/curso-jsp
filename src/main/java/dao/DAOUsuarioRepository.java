@@ -134,6 +134,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 		}
 
 		return modelLogin;
@@ -156,6 +157,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 		}
 
 		return modelLogin;
