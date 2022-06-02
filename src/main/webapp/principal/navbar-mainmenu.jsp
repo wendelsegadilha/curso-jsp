@@ -48,7 +48,7 @@
 									<span class="pcoded-mcaret"></span>
 								</a>
 								<ul class="pcoded-submenu">
-									<c:if test="${sessionScope.isAdmin}">
+									<c:if test='${sessionScope.perfil == "ADMINISTRADOR"}'>
 										<li class=" ">
 											<a href="<%=request.getContextPath()%>/ServletUsuarioController?acao=listarUser" class="waves-effect waves-dark">
 												<span class="pcoded-micon"><i class="ti-angle-right"></i></span>

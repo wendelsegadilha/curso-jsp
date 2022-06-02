@@ -64,7 +64,19 @@
                                                                 <label class="float-label">E-mail:</label>
                                                             </div>
                                                             
-                                                              <div class="form-group form-default form-static-label">
+															<div class="form-group form-default form-static-label">
+																<select class="form-control"
+																	aria-label="Default select example" name="perfil">
+																	<option selected>[selecione o perfil]</option>
+																	<option value="ADMINISTRADOR">Administrador</option>
+																	<option value="SECRETARIA">Secretária</option>
+																	<option value="AUXILIAR">Aúxiliar</option>
+																</select>
+																 <span class="form-bar"></span>
+                                                                <label class="float-label">Perfil:</label>
+															</div>
+
+															<div class="form-group form-default form-static-label">
                                                                 <input type="text" name="login" id="login" class="form-control" required="required" autocapitalize="off" value="${modelLogin.login}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Login:</label>

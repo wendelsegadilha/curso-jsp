@@ -11,6 +11,7 @@ public class ModelLogin implements Serializable{
 	private String login;
 	private String senha;
 	private boolean useradmin;
+	private String perfil;
 	
 	public ModelLogin() {
 	}
@@ -18,6 +19,14 @@ public class ModelLogin implements Serializable{
 	public ModelLogin(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
+	}
+	
+	public String getPerfil() {
+		return perfil;
+	}
+	
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
 	}
 	
 	public boolean getUseradmin() {
