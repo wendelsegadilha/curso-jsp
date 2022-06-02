@@ -85,7 +85,30 @@
                                                 </div>
                                                    		
                                                 </div>
-                                                </div>
+
+												<div style="height: 300px; overflow: scroll;">
+													<table class="table" id="tabelaResultadosView">
+														<thead>
+															<tr>
+																<th scope="col">ID</th>
+																<th scope="col">Nome</th>
+																<th scope="col">E-mail</th>
+																<th scope="col">Ação</th>
+															</tr>
+														</thead>
+														<tbody>
+															<c:forEach items="${modelLogins}" var="ml">
+																<tr>
+																	<td><c:out value="${ml.id}" /></td>
+																	<td><c:out value="${ml.nome}" /></td>
+																	<td><c:out value="${ml.email}" /></td>	
+																	<td><a class="btn btn-success" href="ServletUsuarioController?acao=buscarEditar&id=${ml.id}">Ver</a></td>															</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div>
+
+											</div>
                                                 </div>
 								</div>
 								<!-- Page-body end -->
