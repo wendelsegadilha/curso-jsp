@@ -39,5 +39,9 @@ ALTER TABLE public.model_login
 
 INSERT INTO public.model_login(login, senha) VALUES ('admin', 'admin');
 
+alter table model_login add column usuario_id bigint not null default 3;
+
+alter table model_login add constraint usuario_fk foreign key (usuario_id) references model_login (id);
+
 alter table model_login add column useradmin boolean not null
 
