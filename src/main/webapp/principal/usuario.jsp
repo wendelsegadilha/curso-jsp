@@ -1,3 +1,4 @@
+<%@page import="model.ModelLogin"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -67,10 +68,32 @@
 															<div class="form-group form-default form-static-label">
 																<select class="form-control"
 																	aria-label="Default select example" name="perfil">
-																	<option selected>[selecione o perfil]</option>
-																	<option value="ADMINISTRADOR">Administrador</option>
-																	<option value="SECRETARIA">Secretária</option>
-																	<option value="AUXILIAR">Aúxiliar</option>
+																	<option>[selecione o perfil]</option>
+																	
+																	<option value="ADMINISTRADOR"
+																		<% 
+																			ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																			if (modelLogin != null && modelLogin.getPerfil().equals("ADMINISTRADOR")){
+																				out.print(" selected=\"selected\" ");
+																			}
+																		%>
+																	>Administrador</option>
+																	<option value="SECRETARIA"
+																		<% 
+																			modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																			if (modelLogin != null && modelLogin.getPerfil().equals("SECRETARIA")){
+																				out.print(" selected=\"selected\" ");
+																			}
+																		%>
+																	>Secretária</option>
+																	<option value="AUXILIAR"
+																		<% 
+																			modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+																			if (modelLogin != null && modelLogin.getPerfil().equals("AUXILIAR")){
+																				out.print(" selected=\"selected\" ");
+																			}
+																		%>
+																	>Aúxiliar</option>
 																</select>
 																 <span class="form-bar"></span>
                                                                 <label class="float-label">Perfil:</label>

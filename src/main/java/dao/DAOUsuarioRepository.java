@@ -68,6 +68,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setEmail(resultado.getString("email"));
 			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 			retorno.add(modelLogin);
 		}
 		
@@ -91,6 +92,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setEmail(resultado.getString("email"));
 			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 			retorno.add(modelLogin);
 		}
 		
@@ -114,6 +116,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 		}
 
 		return modelLogin;
@@ -161,6 +164,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 		}
 
 		return modelLogin;
@@ -207,6 +211,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 		}
 
 		return modelLogin;
