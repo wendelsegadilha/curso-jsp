@@ -49,4 +49,7 @@ ALTER TABLE public.model_login ADD COLUMN perfil character varying;
 
 ALTER TABLE public.model_login ADD COLUMN sexo character varying;
 
+ALTER TABLE public.model_login ADD COLUMN fotouser text;
+
+ALTER TABLE public.model_login ADD COLUMN extensaofotouser character varying(10);
 

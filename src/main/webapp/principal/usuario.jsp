@@ -43,7 +43,7 @@
 		                                              		<div style="color: #000; margin-bottom: 20px;">
 		                                              			<span id="msg">${msg}</span>
 		                                              		</div>
-          												 <form class="form-material" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
+          												 <form class="form-material" enctype="multipart/form-data" action="<%= request.getContextPath() %>/ServletUsuarioController" method="post" id="formUser">
           												 	
           												 	<input type="hidden" name="acao" id="acao" value="">
           												 
@@ -51,6 +51,11 @@
                                                                 <input type="text" id="id" name="id" class="form-control" readonly="readonly" value="${modelLogin.id}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">ID:</label>
+                                                            </div>
+                                                            
+                                                            <div class="form-group form-default input-group mb-4">
+                                                            	<img alt="Img 01" width="70" src="https://www.jdevtreinamento.com.br/wp-content/uploads/2020/05/angular-8-e-spring-boot-rest.jpeg">
+                                                            	<input type="file" class="form-control-file" style="margin-left: 5px; margin-top: 15px;">
                                                             </div>
                                                             
                                                               <div class="form-group form-default form-static-label">

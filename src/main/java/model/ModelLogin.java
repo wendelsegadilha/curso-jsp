@@ -13,6 +13,8 @@ public class ModelLogin implements Serializable{
 	private boolean useradmin;
 	private String perfil;
 	private String sexo;
+	private String fotouser;
+	private String extensaofotouser;
 	
 	public ModelLogin() {
 	}
@@ -22,6 +24,22 @@ public class ModelLogin implements Serializable{
 		this.senha = senha;
 	}
 	
+	public String getFotouser() {
+		return fotouser;
+	}
+
+	public void setFotouser(String fotouser) {
+		this.fotouser = fotouser;
+	}
+
+	public String getExtensaofotouser() {
+		return extensaofotouser;
+	}
+
+	public void setExtensaofotouser(String extensaofotouser) {
+		this.extensaofotouser = extensaofotouser;
+	}
+
 	public String getSexo() {
 		return sexo;
 	}
