@@ -3,6 +3,10 @@ package servlets;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.DAOUsuarioRepository;
@@ -12,6 +16,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.ModelLogin;
 
 @MultipartConfig
@@ -114,6 +119,15 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			
+			if (ServletFileUpload.isMultipartContent(request)) {
+				Part part = request.getPart("fileFoto"); // pega a foto da tela
+				byte[] fotoArrayBytes = IOUtils.toByteArray(part.getInputStream());
+				
+				@SuppressWarnings("static-access")
+				String imagemBase64 = new Base64().encodeBase64String(fotoArrayBytes);
+				System.out.println(imagemBase64);
+			}
 			
 
 			if (daoUsuarioRepository.validarLogin(modelLogin.getLogin()) && modelLogin.getId() == null) {

@@ -54,8 +54,8 @@
                                                             </div>
                                                             
                                                             <div class="form-group form-default input-group mb-4">
-                                                            	<img alt="Img 01" width="70" src="https://www.jdevtreinamento.com.br/wp-content/uploads/2020/05/angular-8-e-spring-boot-rest.jpeg">
-                                                            	<input type="file" class="form-control-file" style="margin-left: 5px; margin-top: 15px;">
+                                                            	<img alt="Img 01" id="fotoembase64" width="70" src="">
+                                                            	<input type="file" id="fileFoto" name="fileFoto" onchange="vizualizaImg('fotoembase64', 'fileFoto')" accept="image/*" class="form-control-file" style="margin-left: 5px; margin-top: 15px;">
                                                             </div>
                                                             
                                                               <div class="form-group form-default form-static-label">
@@ -231,6 +231,22 @@
 </div>
 
 <script type="text/javascript">
+
+	function vizualizaImg(fotoembase64, filefoto) {
+		var preview = document.getElementById(fotoembase64); //Campo img do HTML
+		var fileUser = document.getElementById(filefoto).files[0]; //Campo file do HTML
+		var reader = new FileReader();
+		
+		reader.onloadend = function () {
+			preview.src = reader.result; // carrega a foto na tela
+		}
+		
+		if (fileUser) {
+			reader.readAsDataURL(fileUser); // preview da imagem
+		} else {
+			preview.src = '';
+		}
+	}
 	
 	function limparForm(){
 		var elementos = document.getElementById("formUser").elements; /*retorna os elementos html dentro do form*/
