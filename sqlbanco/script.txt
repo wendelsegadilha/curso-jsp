@@ -45,3 +45,8 @@ alter table model_login add constraint usuario_fk foreign key (usuario_id) refer
 
 alter table model_login add column useradmin boolean not null
 
+ALTER TABLE public.model_login ADD COLUMN perfil character varying;
+
+ALTER TABLE public.model_login ADD COLUMN sexo character varying;
+
+
