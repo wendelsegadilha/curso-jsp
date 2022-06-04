@@ -126,7 +126,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				@SuppressWarnings("static-access")
 				String imagemBase64 = new Base64().encodeBase64String(fotoArrayBytes);
-				System.out.println(imagemBase64);
+				
+				String base64ImageFormat = "data:" + part.getContentType() + ";base64," + imagemBase64;
+				
+				modelLogin.setFotouser(base64ImageFormat);
+				modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 			}
 			
 
