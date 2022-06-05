@@ -41,19 +41,20 @@ public class DAOUsuarioRepository {
 
 			preparedSql.execute();
 			connection.commit();
-			
+
 			if (objeto.getFotouser() != null && !objeto.getFotouser().isEmpty()) {
 				sql = "UPDATE model_login SET fotouser = ?,  extensaofotouser = ? WHERE login = ?";
 				preparedSql = connection.prepareStatement(sql);
 				preparedSql.setString(1, objeto.getFotouser());
 				preparedSql.setString(2, objeto.getExtensaofotouser());
 				preparedSql.setString(3, objeto.getLogin());
-				
+
 				preparedSql.execute();
 				connection.commit();
 			}
 		} else {
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=? WHERE id = " + objeto.getId();
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=? WHERE id = "
+					+ objeto.getId();
 
 			PreparedStatement preparedSql = connection.prepareStatement(sql);
 
@@ -70,17 +71,16 @@ public class DAOUsuarioRepository {
 			preparedSql.setString(11, objeto.getUf());
 			preparedSql.setString(12, objeto.getNumero());
 
-
 			preparedSql.executeUpdate();
 			connection.commit();
-			
+
 			if (objeto.getFotouser() != null && !objeto.getFotouser().isEmpty()) {
 				sql = "UPDATE model_login SET fotouser = ?,  extensaofotouser = ? WHERE id = ?";
 				preparedSql = connection.prepareStatement(sql);
 				preparedSql.setString(1, objeto.getFotouser());
 				preparedSql.setString(2, objeto.getExtensaofotouser());
 				preparedSql.setLong(3, objeto.getId());
-				
+
 				preparedSql.execute();
 				connection.commit();
 			}
@@ -88,18 +88,42 @@ public class DAOUsuarioRepository {
 
 		return consultaUsuario(objeto.getLogin(), userLogado);
 	}
-	
-public List<ModelLogin> consultausuarioListPaginado(Long userLogado, Integer offset) throws Exception {
+
+	public int totalPagina (long userLogado) throws Exception{
 		
-		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+		String sql = "select count(1) as total from model_login where usuario_id = " + userLogado;
 		
-		String sql = "select * from model_login where useradmin is false and usuario_id = ? order by nome offset "+ offset +" limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setLong(1, userLogado);
 		
 		ResultSet resultado = statement.executeQuery();
 		
-		while(resultado.next()) {
+		double cadastros = resultado.getDouble("total");
+		
+		Double porpagina = 5.0;
+		Double pagina = cadastros / porpagina;
+		Double resto = pagina % 2;
+		System.out.println(resto);
+		
+		if (resto > 0) {
+			pagina++;
+		}
+		
+		return pagina.intValue();
+		
+	}
+
+	public List<ModelLogin> consultausuarioListPaginado(Long userLogado, Integer offset) throws Exception {
+
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+
+		String sql = "select * from model_login where useradmin is false and usuario_id = ? order by nome offset "
+				+ offset + " limit 5";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, userLogado);
+
+		ResultSet resultado = statement.executeQuery();
+
+		while (resultado.next()) {
 			ModelLogin modelLogin = new ModelLogin();
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setNome(resultado.getString("nome"));
@@ -109,21 +133,21 @@ public List<ModelLogin> consultausuarioListPaginado(Long userLogado, Integer off
 			modelLogin.setSexo(resultado.getString("sexo"));
 			retorno.add(modelLogin);
 		}
-		
+
 		return retorno;
 	}
-	
-public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
-		
+
+	public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
+
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
-		
+
 		String sql = "select * from model_login where useradmin is false and usuario_id = ? limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, userLogado);
-		
+
 		ResultSet resultado = statement.executeQuery();
-		
-		while(resultado.next()) {
+
+		while (resultado.next()) {
 			ModelLogin modelLogin = new ModelLogin();
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setNome(resultado.getString("nome"));
@@ -133,22 +157,22 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setSexo(resultado.getString("sexo"));
 			retorno.add(modelLogin);
 		}
-		
+
 		return retorno;
 	}
-	
+
 	public List<ModelLogin> consultausuarioList(String nome, Long userLogado) throws Exception {
-		
+
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
-		
+
 		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
-		statement.setString(1, "%"+nome+"%");
+		statement.setString(1, "%" + nome + "%");
 		statement.setLong(2, userLogado);
-		
+
 		ResultSet resultado = statement.executeQuery();
-		
-		while(resultado.next()) {
+
+		while (resultado.next()) {
 			ModelLogin modelLogin = new ModelLogin();
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setNome(resultado.getString("nome"));
@@ -158,7 +182,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 			modelLogin.setSexo(resultado.getString("sexo"));
 			retorno.add(modelLogin);
 		}
-		
+
 		return retorno;
 	}
 
@@ -166,7 +190,8 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 
 		ModelLogin modelLogin = new ModelLogin();
 
-		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('" + login + "') and useradmin is false and usuario_id = ?";
+		String sql = "SELECT * FROM model_login WHERE upper(login) = upper('" + login
+				+ "') and useradmin is false and usuario_id = ?";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 		preparedSql.setLong(1, userLogado);
@@ -193,7 +218,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 		return modelLogin;
 
 	}
-	
+
 	public ModelLogin consultaUsuarioLogado(String login) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -225,7 +250,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 		return modelLogin;
 
 	}
-	
+
 	public ModelLogin consultaUsuario(String login) throws SQLException {
 
 		ModelLogin modelLogin = new ModelLogin();
@@ -271,22 +296,22 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 
 	public void deletarUser(String idUser) throws Exception {
 		String sql = "DELETE FROM model_login WHERE id = ? and useradmin is false";
-		
+
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
 		preparedSql.setLong(1, Long.parseLong(idUser));
 		preparedSql.execute();
-		
+
 		connection.commit();
 	}
 
 	public ModelLogin consultarUsuarioId(String id, Long userLogado) throws Exception {
-		
+
 		ModelLogin modelLogin = new ModelLogin();
 
 		String sql = "SELECT * FROM model_login WHERE id = ? and useradmin is false and usuario_id = ?";
 
 		PreparedStatement preparedSql = connection.prepareStatement(sql);
-		
+
 		preparedSql.setLong(1, Long.valueOf(id));
 		preparedSql.setLong(2, userLogado);
 
@@ -311,7 +336,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 		}
 
 		return modelLogin;
-		
+
 	}
 
 }
