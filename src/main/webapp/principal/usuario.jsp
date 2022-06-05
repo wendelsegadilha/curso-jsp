@@ -55,7 +55,9 @@
                                                             
                                                             <div class="form-group form-default input-group mb-4">
                                                             	<c:if test="${modelLogin.fotouser != '' && modelLogin.fotouser != null}">
-                                                            		<img alt="Img 01" id="fotoembase64" width="70" src="${modelLogin.fotouser}">
+                                                            		<a href="<%= request.getContextPath() %>/ServletUsuarioController?acao=downloadFoto&id=${modelLogin.id}">
+                                                            			<img alt="Img 01" id="fotoembase64" width="70" src="${modelLogin.fotouser}">
+                                                            		</a>
                                                             	</c:if>
                                                             	<c:if test="${modelLogin.fotouser == '' || modelLogin.fotouser == null}">
                                                             		<img alt="Img 01" id="fotoembase64" width="70" src="assets/images/user.png">
