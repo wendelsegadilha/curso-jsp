@@ -89,11 +89,35 @@ public class DAOUsuarioRepository {
 		return consultaUsuario(objeto.getLogin(), userLogado);
 	}
 	
+public List<ModelLogin> consultausuarioListPaginado(Long userLogado, Integer offset) throws Exception {
+		
+		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
+		
+		String sql = "select * from model_login where useradmin is false and usuario_id = ? order by nome offset 0 limit 5";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setLong(1, userLogado);
+		
+		ResultSet resultado = statement.executeQuery();
+		
+		while(resultado.next()) {
+			ModelLogin modelLogin = new ModelLogin();
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
+			retorno.add(modelLogin);
+		}
+		
+		return retorno;
+	}
+	
 public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where useradmin is false and usuario_id = ?";
+		String sql = "select * from model_login where useradmin is false and usuario_id = ? limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, userLogado);
 		
@@ -117,7 +141,7 @@ public List<ModelLogin> consultausuarioList(Long userLogado) throws Exception {
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ?";
+		String sql = "select * from model_login where upper(nome) like upper(?) and useradmin is false and usuario_id = ? limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, "%"+nome+"%");
 		statement.setLong(2, userLogado);
