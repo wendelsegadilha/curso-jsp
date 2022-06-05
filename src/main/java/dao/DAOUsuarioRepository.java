@@ -93,7 +93,7 @@ public List<ModelLogin> consultausuarioListPaginado(Long userLogado, Integer off
 		
 		List<ModelLogin> retorno = new ArrayList<ModelLogin>();
 		
-		String sql = "select * from model_login where useradmin is false and usuario_id = ? order by nome offset 0 limit 5";
+		String sql = "select * from model_login where useradmin is false and usuario_id = ? order by nome offset "+ offset +" limit 5";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setLong(1, userLogado);
 		
