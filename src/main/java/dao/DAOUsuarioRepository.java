@@ -96,13 +96,12 @@ public class DAOUsuarioRepository {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		ResultSet resultado = statement.executeQuery();
-		
+		resultado.next();
 		double cadastros = resultado.getDouble("total");
 		
 		Double porpagina = 5.0;
 		Double pagina = cadastros / porpagina;
 		Double resto = pagina % 2;
-		System.out.println(resto);
 		
 		if (resto > 0) {
 			pagina++;
