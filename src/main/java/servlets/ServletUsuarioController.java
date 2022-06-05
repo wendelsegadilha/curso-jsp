@@ -121,6 +121,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String senha = request.getParameter("senha");
 			String perfil = request.getParameter("perfil");
 			String sexo = request.getParameter("sexo");
+			String cep = request.getParameter("cep");
+			String logradouro = request.getParameter("logradouro");
+			String bairro = request.getParameter("bairro");
+			String localidade = request.getParameter("localidade");
+			String uf = request.getParameter("uf");
+			String numero = request.getParameter("numero");
 
 			ModelLogin modelLogin = new ModelLogin();
 			modelLogin.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
@@ -130,6 +136,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setSenha(senha);
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
+			modelLogin.setCep(cep);
+			modelLogin.setLogradouro(logradouro);
+			modelLogin.setBairro(bairro);
+			modelLogin.setLocalidade(localidade);
+			modelLogin.setUf(uf);
+			modelLogin.setNumero(numero);
 
 			if (ServletFileUpload.isMultipartContent(request)) {
 				Part part = request.getPart("fileFoto"); // pega a foto da tela
@@ -139,15 +151,11 @@ public class ServletUsuarioController extends ServletGenericUtil {
 					byte[] fotoArrayBytes = IOUtils.toByteArray(part.getInputStream());
 					@SuppressWarnings("static-access")
 					String imagemBase64 = new Base64().encodeBase64String(fotoArrayBytes);
-					String base64ImageFormat = "data:" + part.getContentType() + ";base64," + imagemBase64; // formata
-																											// para o
-																											// tipo
-																											// entendido
-																											// pelo
-																											// navegador
+					// formata para o tipo entendido pelo navegador
+					String base64ImageFormat = "data:" + part.getContentType() + ";base64," + imagemBase64; 
 					modelLogin.setFotouser(base64ImageFormat);
-					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]); // retorna somente a extensão
-																							// da imagem
+					 // retorna somente a extensão da imagem
+					modelLogin.setExtensaofotouser(part.getContentType().split("\\/")[1]);
 				}
 			}
 
