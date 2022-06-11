@@ -43,6 +43,7 @@ public class ServletTelefone extends ServletGenericUtil {
 
 				request.setAttribute("modelTelefones", modelTelefones);
 				request.setAttribute("modelLogin", modelLogin);
+				request.setAttribute("msg", "Ok! excluído com sucesso!");
 				request.getRequestDispatcher("principal/telefone.jsp").forward(request, response);
 				
 				return;
