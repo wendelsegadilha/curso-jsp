@@ -60,3 +60,27 @@ ALTER TABLE public.model_login ADD COLUMN localidade character varying(250);
 ALTER TABLE public.model_login ADD COLUMN uf character varying(250);
 ALTER TABLE public.model_login ADD COLUMN numero character varying(250);
 
+
+-- Table: public.telefone
+
+-- DROP TABLE public.telefone;
+
+CREATE TABLE public.telefone
+(
+  id integer NOT NULL DEFAULT nextval('telefone_id_seq'::regclass),
+  numero character varying(50) NOT NULL,
+  usuario_pai_id bigint NOT NULL,
+  usuario_cad_id bigint NOT NULL,
+  CONSTRAINT telefone_pkey PRIMARY KEY (id),
+  CONSTRAINT telefone_usuario_cad_id_fkey FOREIGN KEY (usuario_cad_id)
+      REFERENCES public.model_login (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT telefone_usuario_pai_id_fkey FOREIGN KEY (usuario_pai_id)
+      REFERENCES public.model_login (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.telefone
+  OWNER TO postgres;
