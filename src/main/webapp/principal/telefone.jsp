@@ -101,6 +101,13 @@
 
 <!-- Required Jquery -->
 <jsp:include page="arquivo-javascript.jsp"></jsp:include>
+
+<script type="text/javascript">
+	$("#numero").keypress(function (event){
+		return /\d/.test(String.fromCharCode(event.keyCode));
+		
+	});
+</script>
 </body>
 
 </html>
