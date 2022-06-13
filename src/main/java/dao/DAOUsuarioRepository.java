@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class DAOUsuarioRepository {
 	public ModelLogin gravaUsuario(ModelLogin objeto, Long userLogado) throws SQLException {
 
 		if (objeto.isNovo()) {
-			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo, cep, logradouro, bairro, localidade, uf, numero, datanascimento ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement preparedSql = connection.prepareStatement(sql);
 
@@ -38,6 +39,7 @@ public class DAOUsuarioRepository {
 			preparedSql.setString(11, objeto.getLocalidade());
 			preparedSql.setString(12, objeto.getUf());
 			preparedSql.setString(13, objeto.getNumero());
+			preparedSql.setDate(14, new Date(objeto.getDataNascimento().getTime()));
 
 			preparedSql.execute();
 			connection.commit();
@@ -53,7 +55,7 @@ public class DAOUsuarioRepository {
 				connection.commit();
 			}
 		} else {
-			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=? WHERE id = "
+			String sql = "UPDATE model_login SET login=?, senha=?, nome=?, email=?, perfil=?, sexo=?, cep=?, logradouro=?, bairro=?, localidade=?, uf=?, numero=?, datanascimento=? WHERE id = "
 					+ objeto.getId();
 
 			PreparedStatement preparedSql = connection.prepareStatement(sql);
@@ -70,6 +72,7 @@ public class DAOUsuarioRepository {
 			preparedSql.setString(10, objeto.getLocalidade());
 			preparedSql.setString(11, objeto.getUf());
 			preparedSql.setString(12, objeto.getNumero());
+			preparedSql.setDate(13, new Date(objeto.getDataNascimento().getTime()));
 
 			preparedSql.executeUpdate();
 			connection.commit();
